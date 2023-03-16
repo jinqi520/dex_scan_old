@@ -33,6 +33,8 @@ def checkTransferTo(chain, contract_address, pair_contract):
                 log['raw']["topics"][2][26:].lower() == evil_contract[2:].lower():
             print("%s链：  合约地址：%s   疑似存在TransferTo的安全问题，pair合约地址：%s" % (
                 chain, contract_address, pair_contract))
+            scanutil.ding_send_text(
+                "[chain_poc]" + chain + "：  疑似存在TransferTo的安全问题：" + contract_address + " pair合约地址：   " + pair_contract)
 
 
 # def checkTransferTo_byphalcon(chain, contract_address, pair_contract):

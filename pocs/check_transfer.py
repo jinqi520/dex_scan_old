@@ -45,6 +45,8 @@ def checkTransfer(chain, contract_address, pair_contract):
         if amount > balance // 2 and amount != balance * 2:
             print("%s链：  合约地址：%s   疑似存在transfer收取额外手续费的安全问题，pair合约地址：%s" % (
                 chain, contract_address, pair_contract))
+            scanutil.ding_send_text(
+                "[chain_poc]" + chain + "：  token合约疑似存在转账收取额外手续费的安全问题：" + contract_address + " pair合约地址：   " + pair_contract)
     else:
         amount = 0
         for log in logs:
@@ -56,6 +58,8 @@ def checkTransfer(chain, contract_address, pair_contract):
         if amount == balance * 2:
             print("%s链：  合约地址：%s   疑似存在transfer错误打印两次event日志的安全问题，pair合约地址：%s" % (
                 chain, contract_address, pair_contract))
+            scanutil.ding_send_text(
+                "[chain_poc]" + chain + "：  疑似存在transfer错误打印两次event日志的安全问题：" + contract_address + " pair合约地址：   " + pair_contract)
 
 
 if __name__ == "__main__":
