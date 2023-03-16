@@ -16,6 +16,8 @@ def checkTransfer(chain, contract_address, pair_contract):
     print("扫描transfer模块", contract_address)
     test_account = Web3.toChecksumAddress("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
     balance = scanutil.get_erc20_balance(chain, contract_address, pair_contract)
+    if balance == 0:
+        return
     fn_selector = function_signature_to_4byte_selector('transfer(address,uint256)')
     ms_data1 = encode_abi(["address", "uint256"],
                           [test_account, balance])
@@ -65,4 +67,5 @@ def checkTransfer(chain, contract_address, pair_contract):
 if __name__ == "__main__":
     # print(randomIP())
     # eth 0x7800FFF0C88784e83aB23357bBBE53a5f58B439B 0x35944065A706C5436AF45DE884d4a90a5Ddd93E7 0x7794A9BE78684fd8de6Ed65b6c192FF3C37d2D77 0x2725d93ED1A0F9A75FA21183Cd97FFa7642a3586 0xCD56A62CE22dBc5c585C6a3b081C3F68D510a0Dd 0xd7443f8bD9ac5a7E429f809Ae0257792809B901E
-    checkTransfer("eth", "0xd7443f8bD9ac5a7E429f809Ae0257792809B901E", "0xaab7a1A1217fAad781622C3E19F9cccD6012B8C8")
+    # checkTransfer("eth", "0xd7443f8bD9ac5a7E429f809Ae0257792809B901E", "0xaab7a1A1217fAad781622C3E19F9cccD6012B8C8")
+    checkTransfer("bsc", "0x22A76474A36a058aE818093d08a648a6B204010c", "0x9F1a0AA1fF5f63d8E61a913266BB1326862B38Bf")
