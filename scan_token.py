@@ -1,11 +1,12 @@
 import sqlite3
-from pocs import check_transfer, check_transferto
+from pocs import check_transfer, check_transferto, check_deliver
 
 
 def checkIsVul(chain, contract_address, pair_contract):
     try:
         check_transfer.checkTransfer(chain, contract_address, pair_contract)
         check_transferto.checkTransferTo(chain, contract_address, pair_contract)
+        check_deliver.checkDeliver(chain, contract_address, pair_contract)
     except Exception as e:
         print(e)
         
