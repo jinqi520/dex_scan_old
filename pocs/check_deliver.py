@@ -1,5 +1,7 @@
 from web3 import Web3, HTTPProvider
 from scan_util import scanutil
+
+
 def get_contract_code(chain, contract_address):
     if chain == "bsc":
         mainnet_w3 = Web3(HTTPProvider(
@@ -12,6 +14,7 @@ def get_contract_code(chain, contract_address):
 
 
 def checkDeliver(chain, contract_address, pair_contract):
+    print("扫描deliver模块", contract_address)
     bytecode = get_contract_code(chain, contract_address)
     function_str = "633bd5d173"
     if function_str in bytecode:
