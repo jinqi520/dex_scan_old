@@ -1,11 +1,16 @@
-from web3 import Web3
-from eth_abi import encode_abi
-from eth_utils import function_signature_to_4byte_selector
+import requests, json, time
+from scan_util import scanutil
 
+url = "https://www.binance.com/bapi/composite/v1/public/cms/article/latest/query"
 
-if __name__ == "__main__":
-    fn_selector = function_signature_to_4byte_selector('swap(uint256,uint256,address,bytes)')
-    ms_data1 = encode_abi(["uint256,uint256,address,bytes"],
-                          [])
-    input_data = Web3.toHex(fn_selector + ms_data1)
-    print(input_data)
+while True:
+    time.sleep(10)
+
+    resp = requests.get(url)
+
+    res = json.loads(resp.text)["data"]["latestArticles"][0]
+
+    resid = res["id"]
+    if resid != 153079:
+        print(time.strftime("%Y-%m-%d %H:%M:%S"), time.time(), res)
+        scanutil.ding_send_text("[chain_poc]" + time.strftime("%Y-%m-%d %H:%M:%S"))
